@@ -7,6 +7,10 @@ const nextConfig = {
                 hostname: 'randomuser.me',
             }
         ]
+    },
+    devIndicators: {
+        buildActivity: false,
+        buildActivityPosition: 'bottom-right',
     }
 };
 

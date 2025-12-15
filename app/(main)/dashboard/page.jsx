@@ -1,26 +1,27 @@
+import CreateAccountDrawer from '@/components/create-account-drawer';
+import { Card, CardContent } from '@/components/ui/card';
+import { Plus } from 'lucide-react';
 import React from 'react'
 
-const DashBoard = () => {
-  return (
-    <div className="pt-20">
-      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
-      <p>Welcome to your dashboard</p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="font-semibold mb-2">Total Assets</h2>
-          <p className="text-2xl font-bold">$0</p>
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="font-semibold mb-2">Total Liabilities</h2>
-          <p className="text-2xl font-bold">$0</p>
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h2 className="font-semibold mb-2">Net Worth</h2>
-          <p className="text-2xl font-bold">$0</p>
-        </div>
-      </div>
+function DashBoardPage() {
+  return <div className='px-5'>
+    {/* Budget Progress */}
+
+    {/* Overview */}
+
+    {/* Account Grid */}
+    <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
+      <CreateAccountDrawer>
+        <Card className='hover:shadow-md transition-shadow cursor-pointer flex items-center justify-center h-40'>
+          <CardContent className='flex flex-col items-center justify-center text-muted-foreground h-full pt-5'>
+            <Plus className='h-10 w-10 mb-2' />
+            <p className='text-sm font-medium'>Add Account</p>
+          </CardContent>
+        </Card>
+      </CreateAccountDrawer>
     </div>
-  )
+  </div>
+
 }
 
-export default DashBoard
+export default DashBoardPage;
