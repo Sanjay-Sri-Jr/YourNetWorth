@@ -8,7 +8,7 @@ CREATE TYPE "public"."RecurringInterval" AS ENUM ('DAILY', 'WEEKLY', 'MONTHLY', 
 CREATE TYPE "public"."TransactionStatus" AS ENUM ('PENDING', 'COMPLETED', 'FAILED');
 
 -- CreateEnum
-CREATE TYPE "public"."AccountType" AS ENUM ('SAVINGS', 'CREDIT');
+CREATE TYPE "public"."AccountType" AS ENUM ('CURRENT', 'SAVINGS');
 
 -- CreateTable
 CREATE TABLE "public"."users" (
@@ -51,7 +51,7 @@ CREATE TABLE "public"."accounts" (
     "name" TEXT NOT NULL,
     "type" "public"."AccountType" NOT NULL,
     "balance" DECIMAL(65,30) NOT NULL DEFAULT 0,
-    "idDefault" BOOLEAN NOT NULL DEFAULT false,
+    "isDefault" BOOLEAN NOT NULL DEFAULT false,
     "userId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,

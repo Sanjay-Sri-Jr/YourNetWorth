@@ -10,9 +10,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  directUrl      = env("DIRECT_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -80,7 +80,7 @@ model Account {
   name         String
   type         AccountType
   balance      Decimal       @default(0)
-  idDefault    Boolean       @default(false)
+  isDefault    Boolean       @default(false)
   userId       String
   user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   transactions Transaction[]
@@ -92,8 +92,8 @@ model Account {
 }
 
 enum AccountType {
+  CURRENT
   SAVINGS
-  CREDIT
 }
 
 model Budget {
