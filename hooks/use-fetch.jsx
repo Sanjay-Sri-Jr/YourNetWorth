@@ -5,9 +5,10 @@ const useFetch = (cb)=>{
     const [data, setData] = useState(undefined);
     const [loading, setLoading] = useState(null);
     const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const fn=async (...args)=>{
-        setLoading(true);
+        setIsLoading(true);
         setError(null);
 
         try{
@@ -18,9 +19,9 @@ const useFetch = (cb)=>{
             setError(error);
             toast.error(error.message);
         }finally{
-            setLoading(false);
+            setIsLoading(false);
         }
     };
-    return {data, loading, error, fn, setData};
+    return {data, loading, error, fn, setData, isLoading};
 };
 export default useFetch;
