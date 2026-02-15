@@ -1,17 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        remotePatterns:[
+        remotePatterns: [
             {
                 protocol: 'https',
                 hostname: 'randomuser.me',
             }
         ]
     },
-    devIndicators: {
-        buildActivity: false,
-        buildActivityPosition: 'bottom-right',
-    }
+    experimental:{
+        serverActions:{
+            bodySizeLimit: "5mb",
+        },
+    },
 };
 
 export default nextConfig;
