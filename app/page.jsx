@@ -4,6 +4,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { featuresData, howItWorksData, statsData, testimonialsData } from "@/data/landing";
 import Image from "next/image";
 import Link from "next/link";
+import TestimonialsCarousel from "@/components/testimonials-carousel";
+import AnimatedCounter from "@/components/animated-counter";
 
 
 export default function Home() {
@@ -14,7 +16,9 @@ export default function Home() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {statsData.map((statsData, index) => (
             <div key={index}>
-              <div className="text-3xl font-bold text-white mb-2">{statsData.value}</div>
+              <div className="text-3xl font-bold text-white mb-2">
+                <AnimatedCounter value={statsData.value} />
+              </div>
               <div className="text-gray-200">{statsData.label}</div>
             </div>
           ))}
@@ -35,7 +39,7 @@ export default function Home() {
                 <p className="text-gray-600">{feature.description}</p>
               </CardContent>
 
-            </Card>           
+            </Card>
           ))}
         </div>
       </div>
@@ -56,34 +60,16 @@ export default function Home() {
           ))}
         </div>
       </div>
-    </section>   
+    </section>
 
     <section className="py-20">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold mb-12 text-center gradient-title">
           What Our Users Say
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonialsData.map((testimonial, index) => (
-            <Card key={index} className="p-6">
-
-              <CardContent className=" pt-4">
-                <div className="flex items-center mb-4">
-                  <Image src={testimonial.image} alt={testimonial.name} width={40} height={40} className="rounded-full" />
-                  <div className="ml-4">
-                    <div className="font-semibold">{testimonial.name}</div>
-                    <div className="text-sm text-gray-600">{testimonial.role}</div>
-                  </div>
-                </div>
-                <p className="text-gray-600">{testimonial.quote}</p>
-
-              </CardContent>
-
-            </Card>
-          ))}
-        </div>
+        <TestimonialsCarousel testimonials={testimonialsData} />
       </div>
-    </section>     
+    </section>
 
     <section className="py-20 bg-gradient-to-br from-[#CBA135] to-[#F6E27F]">
       <div className="container mx-auto px-4 text-center">
