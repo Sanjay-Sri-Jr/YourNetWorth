@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarIcon, Loader2 } from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
 import useFetch from "@/hooks/use-fetch";
@@ -81,7 +81,9 @@ export function AddTransactionForm({
     data: transactionResult,
   } = useFetch(editMode ? updateTransaction : createTransaction);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    if (transactionLoading) return;
+
     const formData = {
       ...data,
       amount: parseFloat(data.amount),
@@ -92,9 +94,9 @@ export function AddTransactionForm({
     };
 
     if (editMode) {
-      transactionFn(editId, formData);
+      await transactionFn(editId, formData);
     } else {
-      transactionFn(formData);
+      await transactionFn(formData);
     }
   };
 
@@ -315,22 +317,35 @@ export function AddTransactionForm({
           variant="outline"
           className="w-full"
           onClick={() => router.back()}
+          disabled={transactionLoading}
         >
           Cancel
         </Button>
-        <Button type="submit" className="w-full" disabled={transactionLoading}>
-          {transactionLoading ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              {editMode ? "Updating..." : "Creating..."}
-            </>
-          ) : editMode ? (
-            "Update Transaction"
-          ) : (
-            "Create Transaction"
-          )}
+        <Button
+          type="submit"
+          className="w-full"
+          loading={transactionLoading}
+          loadingText={editMode ? "Updating..." : "Creating..."}
+          aria-label={
+            transactionLoading
+              ? editMode
+                ? "Updating transaction"
+                : "Creating transaction"
+              : editMode
+                ? "Update transaction"
+                : "Create transaction"
+          }
+        >
+          {editMode ? "Update Transaction" : "Create Transaction"}
         </Button>
       </div>
+      {transactionLoading && (
+        <p className="text-sm text-muted-foreground" aria-live="polite">
+          {editMode
+            ? "Updating transaction. Please wait..."
+            : "Creating transaction. Please wait..."}
+        </p>
+      )}
     </form>
   );
 }

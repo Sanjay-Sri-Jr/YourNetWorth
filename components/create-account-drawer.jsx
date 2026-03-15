@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
 import useFetch from "@/hooks/use-fetch";
 import { toast } from "sonner";
 
@@ -55,6 +54,7 @@ export function CreateAccountDrawer({ children }) {
   } = useFetch(createAccount);
 
   const onSubmit = async (data) => {
+    if (createAccountLoading) return;
     await createAccountFn(data);
   };
 
@@ -162,25 +162,30 @@ export function CreateAccountDrawer({ children }) {
 
             <div className="flex gap-4 pt-4">
               <DrawerClose asChild>
-                <Button type="button" variant="outline" className="flex-1">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="flex-1"
+                  disabled={createAccountLoading}
+                >
                   Cancel
                 </Button>
               </DrawerClose>
               <Button
                 type="submit"
                 className="flex-1"
-                disabled={createAccountLoading}
+                loading={createAccountLoading}
+                loadingText="Creating..."
+                aria-label={createAccountLoading ? "Creating account" : "Create account"}
               >
-                {createAccountLoading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Creating...
-                  </>
-                ) : (
-                  "Create Account"
-                )}
+                Create Account
               </Button>
             </div>
+            {createAccountLoading && (
+              <p className="text-sm text-muted-foreground" aria-live="polite">
+                Creating account. Please wait...
+              </p>
+            )}
           </form>
         </div>
       </DrawerContent>

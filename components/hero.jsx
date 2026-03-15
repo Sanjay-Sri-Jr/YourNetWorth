@@ -25,7 +25,7 @@ const HeroSection = () => {
         </div>
         <div className='max-w-5xl mx-auto'>
             <div > 
-                <Image src='/dashboard(1).jpg'
+                <Image src='/dashboardPage.png'
                  alt='Dashboard Image' 
                  width={1280} height={720} 
                  className='rounded-lg mx-auto shadow-2xl border border-gray-200' 

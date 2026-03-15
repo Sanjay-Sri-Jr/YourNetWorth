@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import CountUp from "react-countup";
 import { useInView } from "framer-motion";
 
@@ -25,6 +25,10 @@ const AnimatedCounter = ({ value }) => {
 
     const number = parseFloat(numberStr);
     const decimals = numberStr.includes(".") ? numberStr.split(".")[1].length : 0;
+    const zeroFormatted = new Intl.NumberFormat("en-IN", {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+    }).format(0);
 
     return (
         <span ref={ref}>
@@ -33,20 +37,20 @@ const AnimatedCounter = ({ value }) => {
                     start={0}
                     end={number}
                     duration={2.5}
-                    prefix={prefix}
-                    suffix={suffix}
                     separator=","
                     decimal="."
                     decimals={decimals}
-                    formattingFn={(value) => {
-                        return new Intl.NumberFormat("en-IN", {
+                    formattingFn={(animatedValue) => {
+                        const formattedNumber = new Intl.NumberFormat("en-IN", {
                             minimumFractionDigits: decimals,
                             maximumFractionDigits: decimals,
-                        }).format(value);
+                        }).format(animatedValue);
+
+                        return `${prefix}${formattedNumber}${suffix}`;
                     }}
                 />
             ) : (
-                <span>{prefix}0{suffix}</span>
+                <span>{`${prefix}${zeroFormatted}${suffix}`}</span>
             )}
         </span>
     );
